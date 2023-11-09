@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Art Space</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+
+    <string name="ArtNo1">Celestial Dreams</string>
+    <string name="ArtistNo1">Isabella Frost</string>
+    <string name="YearNo1">2018</string>
+
+    <string name="ArtNo2">Eternal Whispers</string>
+    <string name="ArtistNo2">Xander Orion</string>
+    <string name="YearNo2">2021</string>
+
+    <string name="ArtNo3">Techno Symphony</string>
+    <string name="ArtistNo3">Luna Nova</string>
+    <string name="YearNo3">2050</string>
+
+    <string name="ArtNo4">Dystopian Reverie</string>
+    <string name="ArtistNo4">Asher Shadow</string>
+    <string name="YearNo4">2035</string>
+
+    <string name="ArtNo5">Quantum Mirage</string>
+    <string name="ArtistNo5">Vega Starlight</string>
+    <string name="YearNo5">2042</string>
+
+    <string name="ArtNo6">Arcane Secrets</string>
+    <string name="ArtistNo6">Cassandra Moon</string>
+    <string name="YearNo6">1997</string>
+
+    <string name="ArtNo7">Neon Jungle</string>
+    <string name="ArtistNo7">Orion Skye</string>
+    <string name="YearNo7">2029</string>
+
+
+
+
+</resources>
