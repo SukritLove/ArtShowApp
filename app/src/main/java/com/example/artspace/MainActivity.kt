@@ -2,6 +2,7 @@ package com.example.artspace
 
 import android.os.Bundle
 import android.view.View.OnClickListener
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -57,7 +58,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun ArtSpaceLayout(modifier: Modifier = Modifier) {
 
@@ -75,85 +75,32 @@ fun ArtSpaceLayout(modifier: Modifier = Modifier) {
             .safeDrawingPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
                 .shadow(16.dp)
         ) {
-            Box(
+            Card(
                 modifier = Modifier
                     .background(Color.White)
                     .padding(30.dp)
             ) {
                 Image(painter = painterResource(dataId[0]), contentDescription = "1")
             }
-
-
         }
-
-
-        Box(
-            modifier = modifier
-                .padding(top = 50.dp)
-                .background(colorResource(id = R.color.grayArtInfo))
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp)
-            ) {
-                Text(
-                    text = "War Of Heaven",
-                    style = MaterialTheme.typography.displaySmall
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Salami",
-                        Modifier.padding(end = 7.dp),
-                        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                    )
-                    Text(
-                        text = "(2001)",
-                        style = TextStyle(fontSize = 20.sp)
-                    )
-
-                }
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 60.dp), Arrangement.SpaceAround
-        ) {
-            val btnStyle = Modifier.width(150.dp)
-            Button(
-
-                onClick = { if (position != 1) position-- else position = 6 },
-                modifier = btnStyle
-            ) {
-                Text(stringResource(R.string.previous))
-
-            }
-            Button(
-
-                onClick = { if (position != 6) position++ else position = 1 },
-                modifier = btnStyle
-            ) {
-                Text(stringResource(R.string.next))
-
-            }
-        }
-
+        ArtInfo(dataId)
+        ButtonInRow(
+            onPreClick = {
+                if (position >= 1) position-- else position = 6
+            }, onNextClick = {
+                if (position <= 6) position++ else position = 1
+            })
     }
 }
 
-/*@Composable
-fun ArtInfo(modifier: Modifier = Modifier) {
+@Composable
+fun ArtInfo(artInfo: Array<Int>, modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
@@ -161,53 +108,69 @@ fun ArtInfo(modifier: Modifier = Modifier) {
             .background(colorResource(id = R.color.grayArtInfo))
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(20.dp)
         ) {
-            Text(
-                text = "War Of Heaven",
-                style = MaterialTheme.typography.displaySmall
+            ShowText(
+                style = MaterialTheme.typography.headlineMedium,
+                text = stringResource(artInfo[1])
             )
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Text(
-                    text = "Salami",
+                ShowText(
+                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp),
+                    text = stringResource(artInfo[2]),
                     Modifier.padding(end = 7.dp),
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
                 )
-                Text(
-                    text = "(2001)",
-                    style = TextStyle(fontSize = 20.sp)
+                ShowText(
+                    style = TextStyle(fontSize = 20.sp),
+                    text = "(${stringResource(artInfo[3])})",
                 )
 
             }
         }
     }
 
-}*/
+}
 
-/*@Composable
-fun ButtonInRow(position: Int, onClick: (Int) -> Unit) {
+@Composable
+fun ShowText(style: TextStyle, text: String, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        style = style,
+        modifier = modifier
+    )
+}
 
-    var position = position
-    val btnStyle = Modifier.width(150.dp)
-
-
-    Button(
-        onClick = { onClick },
-        *//*{
-            if (position != 1) position -= 1 else position = 6
-        },*//*
-        modifier = btnStyle
+@Composable
+fun ButtonInRow(onPreClick: () -> Unit, onNextClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 60.dp), Arrangement.SpaceAround
     ) {
-        Text(stringResource(R.string.previous))
+        SetButton(onClick = onPreClick, str = stringResource(R.string.previous))
+        SetButton(onClick = onNextClick, str = stringResource(R.string.next))
 
     }
+}
 
-}*/
+@Composable
+fun SetButton(onClick: () -> Unit, str: String = "") {
+
+    val btnStyle = Modifier.width(150.dp)
+    Button(
+        onClick = onClick,
+        modifier = btnStyle
+    ) {
+        Text(str)
+    }
+}
+
 
 fun getId(position: Int = 1): Array<Int> {
     val allId: Array<Int> = when (position) {
@@ -216,7 +179,12 @@ fun getId(position: Int = 1): Array<Int> {
         3 -> arrayOf(R.drawable.img_03, R.string.ArtNo3, R.string.ArtistNo3, R.string.YearNo3)
         4 -> arrayOf(R.drawable.img_04, R.string.ArtNo4, R.string.ArtistNo4, R.string.YearNo4)
         5 -> arrayOf(R.drawable.img_05, R.string.ArtNo5, R.string.ArtistNo5, R.string.YearNo5)
-        else -> arrayOf(R.drawable.img_06, R.string.ArtNo6, R.string.ArtistNo6, R.string.YearNo6)
+        else -> arrayOf(
+            R.drawable.img_06,
+            R.string.ArtNo6,
+            R.string.ArtistNo6,
+            R.string.YearNo6
+        )
 
     }
     return allId
